@@ -176,7 +176,7 @@
             <div class="contact-form-wrapper">
               <h2 class="text-center mb-4">Get in Touch</h2>
 
-              <form action="https://tattvacapital.free.nf/contact.php" method="post" class="php-email-form">
+              <form id="contactForm" class="php-email-form">
               
 
                 <div class="row g-3">
@@ -338,37 +338,44 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+window.onload = function () {
+  const form = document.getElementById("contactForm");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-  const form = e.target;
-  const formData = new FormData(form);
+      const formData = new FormData(form);
 
-  fetch("https://contact-api-om9i.onrender.com/contact", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: formData.get("name"),
-      email: formData.get("email"),
-      subject: formData.get("subject"),
-      message: formData.get("message")
-    })
-  })
-  .then(res => res.text())
-  .then(data => {
-    if (data === "success") {
-      alert("Message sent successfully!");
-      form.reset();
-    } else {
-      alert("Failed to send message.");
-    }
-  })
-  .catch(err => {
-    alert("Server error.");
-    console.error(err);
-  });
-});
+      fetch("https://contact-api-om9i.onrender.com/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          subject: formData.get("subject"),
+          message: formData.get("message")
+        })
+      })
+      .then(res => res.text())
+      .then(data => {
+        if (data === "success") {
+          alert("Message sent successfully!");
+          form.reset();
+        } else {
+          alert("Failed to send message.");
+        }
+      })
+      .catch(err => {
+        alert("Server error.");
+        console.error(err);
+      });
+    });
+  }
+};
 </script>
+
 
 
 
