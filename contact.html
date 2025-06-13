@@ -344,7 +344,7 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
   const form = e.target;
   const formData = new FormData(form);
 
-  fetch("https://contact-api-om9i.onrender.com", {
+  fetch("https://contact-api-om9i.onrender.com/contact", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
